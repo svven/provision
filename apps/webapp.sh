@@ -31,9 +31,16 @@ pyenv activate web
 git clone git@bitbucket.org:svven/web.git
 
 # Pip the requirements
-#pip install requirements.txt
+pip install -r requirements.txt
 
-pip install requests
 
 # Pip gunicorn
-# pip install gunicorn
+pip install gunicorn
+
+# log vars
+export GUNC_ACCESS_LOG=~/web/logs/gunicorn/guncacc.log
+export GUNC_LOG=~/web/logs/gunicorn/gunc.log
+
+# Start gunicorn
+gunicorn --access-logfile $GUNC_ACCESS_LOG --log-file $GUNC_LOG --log-level debug sources.app:app -b 0.0.0.0:8000 &
+
