@@ -19,4 +19,4 @@ sudo apt-get upgrade -y
 
 ## Major requirements
 sudo apt-get install -y build-essential
-sudo apt-get update # again
+# sudo apt-get update # again

@@ -6,7 +6,7 @@ echo "
 ############################################################
 "
 
-## Make sure
+## Go home
 cd $HOME
 ## Locale fix just in case
 export LC_ALL=en_US.UTF-8
@@ -33,8 +33,8 @@ sudo apt-get install -y libpq-dev # psycopg2
 sudo apt-get install -y supervisor
 
 ## And again
-sudo apt-get update
-sudo apt-get -y upgrade
+# sudo apt-get update
+# sudo apt-get -y upgrade
 
 ## Set up pyenv
 ## https://github.com/yyuu/pyenv-installer
@@ -48,27 +48,6 @@ cat << "EOF" >> .bash_profile
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
-## SSH agent
-SSH_ENV="$HOME/.ssh/environment"
-function start_agent {
-    echo "Initialising new SSH agent..."
-    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-    echo succeeded
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-    /usr/bin/ssh-add;
-}
-## Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-    . "${SSH_ENV}" > /dev/null
-    #ps ${SSH_AGENT_PID} doesn't work under cywgin
-    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-        start_agent;
-    }
-else
-    start_agent;
-fi
 EOF
 
 ## And source it

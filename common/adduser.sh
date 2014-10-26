@@ -12,10 +12,20 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-## Create app and/or db specified user, and make it admin
+## Create app and/or db specified user, and make it sudo
 ## http://brianflove.com/2013/06/18/add-new-sudo-user-to-ec2-ubuntu/
 sudo adduser --quiet --gecos "" --ingroup sudo --disabled-password $1
 echo "$1 ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$1
 
-# sudo userdel -r $1
-# gpasswd -d $1 sudo # remove from admin group in the end
+## Check if devs exists
+egrep -i "^devs:" /etc/group
+if [ $? -ne 0 ]; then
+    ## Add group
+    sudo addgroup devs 	
+fi
+
+## Also add it to devs
+sudo adduser $1 devs
+
+# sudo deluser --remove-home $1
+# sudo deluser $1 sudo # remove from sudo group in the end
