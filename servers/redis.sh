@@ -1,7 +1,9 @@
 #!/bin/bash
+redisversion="redis-2.8.17"
+
 echo "
 ############################################################
-## Redis server
+## Redis server (${redisversion})
 ## User: $USER (e.g.: svven, ducu, jon etc.)
 ############################################################
 "
@@ -37,24 +39,35 @@ if [ $1 == "-c" ]; then
 elif [ -d /project/redis ]; then
     ln -s /project/redis redis
 fi
-cd redis
+
+if [ -d ${HOME}/redis ]; then
+	cd ${HOME}/redis
+else
+	echo "Failed loading redis repo."
+	exit 1
+fi
 
 ## Install redis
-redisversion="redis-2.8.17"
+if [ ! -f /opt/${redisversion}/src/redis-server ]; then
+	wget http://download.redis.io/releases/${redisversion}.tar.gz
+	tar xzf ${redisversion}.tar.gz
+	sudo mv ${redisversion} /opt/
 
-wget http://download.redis.io/releases/${redisversion}.tar.gz
-tar xzf ${redisversion}.tar.gz
-sudo mv ${redisversion} /opt/
-cd /opt/${redisversion}
-sudo chmod 750 -R . # required execute permissions
-sudo make
+	cd /opt/${redisversion}
+	sudo chmod 750 -R . # required execute permissions
+	sudo make
+	# ## Test
+	# sudo make test
 
-# ## Test
-# sudo make test
+	cd ${HOME}/redis
+else
+	echo "Redis Server already installed."
+fi
 
 ## Link to server
-cd ${HOME}/redis
-ln -s /opt/${redisversion}/src server
+if [ ! f server/redis-server ]; then
+	ln -s /opt/${redisversion}/src server
+fi
 
 ## Start redis server
 # server/redis-server conf/redis.conf
