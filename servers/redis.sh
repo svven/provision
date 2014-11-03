@@ -48,14 +48,14 @@ else
 fi
 
 ## Install redis
-if [ ! -f /opt/${redisversion}/src/redis-server ]; then
-	wget http://download.redis.io/releases/${redisversion}.tar.gz
-	tar xzf ${redisversion}.tar.gz
-	sudo mv ${redisversion} /opt/
+if [ ! -f /usr/local/bin/redis-server ]; then
+    cd /usr/local/src
+	sudo wget http://download.redis.io/releases/${redisversion}.tar.gz
+	sudo tar xzf ${redisversion}.tar.gz
+	cd ${redisversion}
 
-	cd /opt/${redisversion}
-	sudo chmod 750 -R . # required execute permissions
 	sudo make
+    sudo make PREFIX=/usr/local/ install
 	# ## Test
 	# sudo make test
 
@@ -64,10 +64,5 @@ else
 	echo "Redis Server already installed."
 fi
 
-## Link to server
-if [ ! f server/redis-server ]; then
-	ln -s /opt/${redisversion}/src server
-fi
-
 ## Start redis server
-# server/redis-server conf/redis.conf
+# redis-server conf/redis.conf
