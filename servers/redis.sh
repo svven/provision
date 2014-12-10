@@ -1,6 +1,5 @@
 #!/bin/bash
 redisversion="redis-2.8.17"
-
 echo "
 ############################################################
 ## Redis server (${redisversion})
@@ -30,22 +29,22 @@ sudo apt-get install -y supervisor
 ## Start the profile
 source .bash_profile
 
-## Either clone or symlink the code
-if [ $1 == "-c" ]; then
-    # git init
-    # git remote add origin git@bitbucket.org:svven/redis.git
-    # git pull origin master
-    git clone git@bitbucket.org:svven/redis.git
-elif [ -d /project/redis ]; then
-    ln -s /project/redis redis
-fi
+# ## Either clone or symlink the code
+# if [ $1 == "-c" ]; then
+#     # git init
+#     # git remote add origin git@bitbucket.org:svven/redis.git
+#     # git pull origin master
+#     git clone git@bitbucket.org:svven/redis.git
+# elif [ -d /project/redis ]; then
+#     ln -s /project/redis redis
+# fi
 
-if [ -d ${HOME}/redis ]; then
-	cd ${HOME}/redis
-else
-	echo "Failed loading redis repo."
-	exit 1
-fi
+# if [ -d ${HOME}/redis ]; then
+# 	cd ${HOME}/redis
+# else
+# 	echo "Failed loading redis repo."
+# 	exit 1
+# fi
 
 ## Install redis
 if [ ! -f /usr/local/bin/redis-server ]; then
@@ -63,6 +62,8 @@ if [ ! -f /usr/local/bin/redis-server ]; then
 else
 	echo "Redis Server already installed."
 fi
+
+# ## TODO: Copy or link ../conf/redis.conf if any
 
 ## Start redis server
 # redis-server conf/redis.conf

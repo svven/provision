@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "
 ############################################################
 ## PostgreSQL server
@@ -26,22 +25,24 @@ sudo apt-get install -y postgresql postgresql-contrib
 ## Start the profile
 source .bash_profile
 
-## Either clone or symlink the code
-if [ $1 == "-c" ]; then
-    # git init
-    # git remote add origin git@bitbucket.org:svven/postgre.git
-    # git pull origin master
-    git clone git@bitbucket.org:svven/postgre.git
-elif [ -d /project/postgre ]; then
-    ln -s /project/postgre postgre
-fi
+# ## Either clone or symlink the code
+# if [ $1 == "-c" ]; then
+#     # git init
+#     # git remote add origin git@bitbucket.org:svven/postgre.git
+#     # git pull origin master
+#     git clone git@bitbucket.org:svven/postgre.git
+# elif [ -d /project/postgre ]; then
+#     ln -s /project/postgre postgre
+# fi
 
-if [ -d ${HOME}/postgre ]; then
-	cd ${HOME}/postgre
-else
-	echo "Failed loading postgre repo."
-	exit 1
-fi
+# if [ -d ${HOME}/postgre ]; then
+# 	cd ${HOME}/postgre
+# else
+# 	echo "Failed loading postgre repo."
+# 	exit 1
+# fi
+
+# ## TODO: Copy or link ../conf/postgre.conf if any
 
 # ## Create db role
 sudo -u postgres createuser $USER
