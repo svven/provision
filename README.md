@@ -3,7 +3,7 @@ Bootstrap
 
 Centralized repo containing bootstrap scripts for various system components. 
 
-Each system component such as 'web', 'poller' and 'rdbms' is coded in its own git repo. Every repo contains a script named `provision.sh` that is used for provisioning, and that relies on its specific set of scripts that are found in this 'bootstrap' repo.
+Use `install.sh` with available arguments to bootstrap a single component, or manually call various scripts to install several components on the same instance (e.g. poller and summarizer).
 
-Make sure you make these scripts available on the box before running the provision routine. It can be done either through a shared folder on vagrant, or by scp-ing the 'bootstrap' folder to the AWS instance. The default location would be the home directory of the admin user (e.g.: ubuntu, vagrant) that is running the routine.
+Deploying this repo can be done either through a shared folder on vagrant, or by scp-ing the 'bootstrap' folder to the AWS instance. The default location would be the home directory of the admin user (e.g.: ubuntu, vagrant) that is running the routine.
 
