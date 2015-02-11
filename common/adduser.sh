@@ -17,15 +17,15 @@ fi
 sudo adduser --quiet --gecos "" --ingroup sudo --disabled-password $1
 echo "$1 ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$1
 
-## Check if devs exists
-egrep -i "^devs:" /etc/group
+## Check if group exists
+egrep -i "^svven:" /etc/group
 if [ $? -ne 0 ]; then
     ## Add group
-    sudo addgroup devs 	
+    sudo addgroup svven
 fi
 
-## Also add it to devs
-sudo adduser $1 devs
+## Also add it to svven
+sudo adduser $1 svven
 
 # sudo deluser --remove-home $1
 # sudo deluser $1 sudo # remove from sudo group in the end
