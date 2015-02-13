@@ -11,7 +11,7 @@ NEW_USER=svven
 PRIVATE_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa?dl=1
 # PUBLIC_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa.pub?dl=1
 
-BOOTSTRAP_GIT_REPO=https://github.com/svven/bootstrap.git
+SYSADMIN_GIT_REPO=https://bitbucket.org/svven/sysadmin.git
 PROVISION_GIT_REPO=git@bitbucket.org:svven/provision.git
 
 ## Locale fix
@@ -32,18 +32,18 @@ sudo apt-get install -y build-essential git
 ## Go home
 cd $HOME # /home/$USER
 
-## Get public bootstrap scripts
-if [ ! -d bootstrap ]; then
-    git clone $BOOTSTRAP_GIT_REPO
+## Get public sysadmin scripts
+if [ ! -d sysadmin ]; then
+    git clone $SYSADMIN_GIT_REPO
 fi
 
 ## Add new user and set SSH keys
-sudo -u $USER -H bash bootstrap/adduser.sh $NEW_USER
-sudo -u $NEW_USER -H bash bootstrap/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
+sudo -u $USER -H bash sysadmin/adduser.sh $NEW_USER
+sudo -u $NEW_USER -H bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
 
 ## Get private provision scripts
 if [ ! -d provision ]; then
-    sudo -u $USER -H bash bootstrap/gitclone.sh $PROVISION_GIT_REPO $PRIVATE_KEY
+    sudo -u $USER -H bash sysadmin/gitclone.sh $PROVISION_GIT_REPO $PRIVATE_KEY
 fi
 
 ## Install the component
