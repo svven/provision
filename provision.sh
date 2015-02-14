@@ -1,4 +1,5 @@
 #!/bin/bash
+USER=ubuntu; HOME=/home/ubuntu
 echo "
 ##############################################################################
 ## Provision (via Vagrant or EC2 User Data)
@@ -14,7 +15,7 @@ PRIVATE_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa?dl=1
 SYSADMIN_GIT_REPO=https://bitbucket.org/svven/sysadmin.git
 PROVISION_GIT_REPO=git@bitbucket.org:svven/provision.git
 
-## Locale fix
+## Fix locale
 ## http://www.pixelninja.me/how-to-fix-invalid-locale-setting-in-ubuntu-14-04-in-the-cloud/
 sudo locale-gen en_US.UTF-8
 export LC_ALL=en_US.UTF-8
