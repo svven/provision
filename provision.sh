@@ -16,7 +16,7 @@ SYSADMIN_GIT_REPO=https://bitbucket.org/svven/sysadmin.git
 PROVISION_GIT_REPO=git@bitbucket.org:svven/provision.git
 
 ## Fix locale before
-curl -L $SYSADMIN_GIT_REPO/raw/master/fixlocale.sh | sudo -u $USER - H bash
+curl -L $SYSADMIN_GIT_REPO/raw/master/fixlocale.sh | bash
 
 ## Update and upgrade
 sudo apt-get update
