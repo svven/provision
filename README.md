@@ -3,7 +3,7 @@ Provision
 
 Centralized repo containing provisioning scripts for various system components.
 
-Instance AMI: ubuntu-trusty-14.04-amd64-server-20140927 (ami-f0b11187)
+Instance AMI: ami-f0b11187  
 Ubuntu Server 14.04 LTS (Trusty Tahr) http://cloud-images.ubuntu.com/releases/14.04/
 
 This repo can be deployed on AWS EC2 by calling `provision.sh` via cloud-init user data. It gets and uses a set of sysadmin helper scripts from https://bitbucket.org/svven/sysadmin
