@@ -1,45 +1,39 @@
 #!/bin/bash
 echo "
-############################################################
+##############################################################################
 ## Web app
 ## User: $USER (e.g.: svven, ducu, jon etc.)
-############################################################
+##############################################################################
 "
 
+REPO=web
+GIT_REPO=git@bitbucket.org:svven/$REPO.git
+DIR=$( cd "$( dirname "$0" )/.." && pwd )
+
 ## Go home
-cd $HOME
+cd $HOME # /home/$USER
 
 ## Start the profile
 source .bash_profile
 
-## Either clone or symlink the code
-if [ $1 == "-c" ]; then
-    git clone git@bitbucket.org:svven/web.git
-elif [ -d /project/web ]; then
-    ln -s /project/web web
+## Install
+if [ ! -d $REPO ]; then
+    git clone $GIT_REPO
 fi
-cd web
+cd $REPO
 
-## Virtualenv first
-pyenv virtualenv web
+## Activate virtualenv
+if [ ! -d env ]; then
+    virtualenv env
+fi
+source env/bin/activate
 
-## Activate it
-pyenv activate web
-############################################################
-## (Env)User: (web)svven
-
-## Pip the requirements
+## Requirements
 pip install -r requirements.txt
 
-## Pip gunicorn
-pip install gunicorn
+## Start gunicorn
+gunicorn web.manage:app -b unix:/tmp/gunicorn.sock -w 4 -D
 
-
-## Sort out later
-# # log vars
-# export GUNC_ACCESS_LOG=~/web/logs/gunicorn/guncacc.log
-# export GUNC_LOG=~/web/logs/gunicorn/gunc.log
-
-# # Start gunicorn
-# gunicorn --access-logfile $GUNC_ACCESS_LOG --log-file $GUNC_LOG --log-level debug sources.app:app -b 0.0.0.0:8000 &
-
+## Configure nginx
+sudo cp $DIR/conf/web.conf /etc/nginx/conf.d/web.conf
+sudo service nginx restart
