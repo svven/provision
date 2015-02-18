@@ -16,7 +16,7 @@ cd $HOME # /home/$USER
 sudo apt-get install -y $POSTGRE_VER postgresql-contrib
 
 ## Configure
-sudo cp -u $DIR/conf/postgresql.conf /etc/postgresql/$VER/main/postgresql.conf
+sudo cp $DIR/conf/postgresql.conf /etc/postgresql/$VER/main/postgresql.conf
 
 ## Database
 sudo -u postgres createuser $USER ## dropuser $USER
