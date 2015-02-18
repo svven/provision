@@ -9,7 +9,7 @@ echo "
 ALL="nginx web app"
 COMPONENT=${1:-"$ALL"} # (e.g.: "postgre", "summarizer app")
 if [[ $COMPONENT == "all" ]]; then
-	COMPONENT=$ALL
+    COMPONENT=$ALL
 fi
 
 NEW_USER=svven

@@ -44,9 +44,10 @@ source .bash_profile
 
 ## Set up pyenv
 pyenv update
-pyenv install -s $PYTHON_VER
+pyenv install $PYTHON_VER
 pyenv rehash
 pyenv global $PYTHON_VER
 
 ## Set up pyenv-virtualenv, but should be set already
+pyenv virtualenv env
 # git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
