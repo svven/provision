@@ -33,12 +33,12 @@ else
 fi
 
 ## Configure
-## https://redislabs.com/blog/5-tips-for-running-redis-over-aws
 sudo useradd -r redis
 sudo mkdir -p /var/lib/redis /var/log/redis
 sudo chown redis:redis /var/lib/redis /var/log/redis
 sudo cp -u $DIR/conf/redis.conf /etc/redis.conf
 echo "
+## https://redislabs.com/blog/5-tips-for-running-redis-over-aws
 vm.swappiness=0
 vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
 

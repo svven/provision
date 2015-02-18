@@ -6,7 +6,8 @@ echo "
 ## User: $USER (e.g. root, vagrant, ubuntu)
 ##############################################################################"
 
-COMPONENT=${1:-"postgre redis"} # (e.g.: postgre, redis, nginx, web, poller, summarizer)
+ALL="postgre redis app poller summarizer" # nginx web
+COMPONENT=${1:-"$ALL"} # (e.g.: "postgre", "summarizer app")
 
 NEW_USER=svven
 PRIVATE_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa?dl=1
@@ -43,4 +44,6 @@ if [ ! -d provision ]; then
 fi
 
 ## Install the component
-sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
+if [ $COMPONENT ]; then
+    sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
+fi
