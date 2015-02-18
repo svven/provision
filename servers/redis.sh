@@ -1,69 +1,51 @@
 #!/bin/bash
-redisversion="redis-2.8.17"
+REDIS_VER="redis-2.8.19"
 echo "
-############################################################
-## Redis server (${redisversion})
-## User: $USER (e.g.: svven, ducu, jon etc.)
-############################################################
+##############################################################################
+## Redis server ($REDIS_VER)
+## User: $USER (e.g.: svven)
+##############################################################################
 "
 
+
+DIR=$( cd "$( dirname "$0" )/.." && pwd )
+
 ## Go home
-cd $HOME
-## Locale fix just in case
-export LC_ALL=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+cd $HOME # /home/$USER
 
-## Install git
-sudo apt-get install -y git
-
-## Redis requirement
+## Requirement
 sudo apt-get install -y tcl8.5
 
-## Install supervisor
-sudo apt-get install -y supervisor
-
-## And again
-# sudo apt-get update
-# sudo apt-get -y upgrade
-
-## Start the profile
-source .bash_profile
-
-# ## Either clone or symlink the code
-# if [ $1 == "-c" ]; then
-#     # git init
-#     # git remote add origin git@bitbucket.org:svven/redis.git
-#     # git pull origin master
-#     git clone git@bitbucket.org:svven/redis.git
-# elif [ -d /project/redis ]; then
-#     ln -s /project/redis redis
-# fi
-
-# if [ -d ${HOME}/redis ]; then
-# 	cd ${HOME}/redis
-# else
-# 	echo "Failed loading redis repo."
-# 	exit 1
-# fi
-
-## Install redis
+## Install
 if [ ! -f /usr/local/bin/redis-server ]; then
     cd /usr/local/src
-	sudo wget http://download.redis.io/releases/${redisversion}.tar.gz
-	sudo tar xzf ${redisversion}.tar.gz
-	cd ${redisversion}
+    sudo wget http://download.redis.io/releases/$REDIS_VER.tar.gz
+    sudo tar xzf $REDIS_VER.tar.gz
 
-	sudo make
+    cd $REDIS_VER
+    sudo make
     sudo make PREFIX=/usr/local/ install
-	# ## Test
-	# sudo make test
-
-	cd ${HOME}/redis
+    # ## Test
+    # sudo make test
 else
-	echo "Redis Server already installed."
+    echo "Redis server already installed."
+    exit 0
 fi
 
-# ## TODO: Copy or link ../conf/redis.conf if any
+## Configure
+## https://redislabs.com/blog/5-tips-for-running-redis-over-aws
+sudo useradd -r redis
+sudo mkdir -p /var/lib/redis /var/log/redis
+sudo chown redis:redis /var/lib/redis /var/log/redis
+sudo cp -u $DIR/conf/redis.conf /etc/redis.conf
+echo "
+vm.swappiness=0
+vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
+
+## Initialize 
+sudo cp -u $DIR/init/redis.init /etc/init.d/redis-server
+sudo chmod +x /etc/init.d/redis-server
 
 ## Start redis server
-# redis-server conf/redis.conf
+sudo update-rc.d redis-server defaults
+sudo service redis-server start

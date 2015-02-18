@@ -2,11 +2,11 @@
 USER=ubuntu; HOME=/home/ubuntu
 echo "
 ##############################################################################
-## Provision (via Vagrant or EC2 User Data)
+## Provision
 ## User: $USER (e.g. root, vagrant, ubuntu)
 ##############################################################################"
 
-COMPONENT=${1:-all} # (e.g.: postgre, redis, nginx, web, poller, summarizer)
+COMPONENT=${1:-"postgre redis"} # (e.g.: postgre, redis, nginx, web, poller, summarizer)
 
 NEW_USER=svven
 PRIVATE_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa?dl=1
