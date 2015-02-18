@@ -6,8 +6,11 @@ echo "
 ## User: $USER (e.g. root, vagrant, ubuntu)
 ##############################################################################"
 
-ALL="postgre redis app poller summarizer" # nginx web
+ALL="nginx web app"
 COMPONENT=${1:-"$ALL"} # (e.g.: "postgre", "summarizer app")
+if [[ $COMPONENT == "all" ]]; then
+	COMPONENT=$ALL
+fi
 
 NEW_USER=svven
 PRIVATE_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa?dl=1

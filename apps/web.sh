@@ -32,7 +32,7 @@ source env/bin/activate
 pip install -r requirements.txt
 
 ## Start gunicorn
-gunicorn web.manage:app -b unix:/tmp/gunicorn.sock -w 4 -D
+gunicorn manage:app -b unix:/tmp/gunicorn.sock -w 4 -D
 
 ## Configure nginx
 sudo cp $DIR/conf/web.conf /etc/nginx/conf.d/web.conf

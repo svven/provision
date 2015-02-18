@@ -8,7 +8,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "ubuntu/trusty64" # "phusion/ubuntu-14.04-amd64"
 
-  config.vm.network "forwarded_port", guest: 5000, host: 5555 # web
+  config.vm.network "forwarded_port", guest: 80, host: 8080 # web
 
   # config.vm.synced_folder "../", "/project", 
   #   owner: "svven", group: "devs", mount_options: ["dmode=750,fmode=640"]
