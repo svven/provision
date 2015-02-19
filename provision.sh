@@ -43,7 +43,9 @@ sudo -u $NEW_USER -H bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
 
 ## Get private provision scripts
 if [ ! -d provision ]; then
-    sudo -u $USER -H bash sysadmin/gitclone.sh $PROVISION_GIT_REPO $PRIVATE_KEY
+    sudo -u $USER -H bash sysadmin/setssh.sh $PRIVATE_KEY
+    source .bash_profile
+    git clone $PROVISION_GIT_REPO
 fi
 
 ## Install the component
