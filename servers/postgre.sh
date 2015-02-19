@@ -25,4 +25,4 @@ sudo service postgresql reload
 ## Database
 sudo -u postgres createuser -D -A $USER ## dropuser $USER
 sudo -u postgres createdb -O $USER $USER ## dropdb $USER
-sudo -u $USER psql -c "grant all privileges on database $USER to $USER;"
+psql -c "grant all privileges on database $USER to $USER;"

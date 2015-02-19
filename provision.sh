@@ -32,21 +32,27 @@ sudo apt-get install -y build-essential git
 ## Go home
 cd $HOME # /home/$USER
 
+cat << "EOF" >> sudo -u $USER -H bash
 ## Get public sysadmin scripts
 if [ ! -d sysadmin ]; then
     git clone $SYSADMIN_GIT_REPO
 fi
 
-## Add new user and set SSH keys
-sudo -u $USER -H bash sysadmin/adduser.sh $NEW_USER
-sudo -u $NEW_USER -H bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
-
 ## Get private provision scripts
 if [ ! -d provision ]; then
-    sudo -u $USER -H bash sysadmin/setssh.sh $PRIVATE_KEY
+    bash sysadmin/setssh.sh $PRIVATE_KEY
     source .bash_profile
     git clone $PROVISION_GIT_REPO
 fi
 
+## Add new user
+bash sysadmin/adduser.sh $NEW_USER
+EOF
+
+cat << "EOF" >> sudo -u $NEW_USER -H bash
+## Set SSH keys
+bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
+
 ## Install the component
-sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
+# bash provision/install.sh "$COMPONENT"
+EOF
