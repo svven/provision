@@ -47,6 +47,4 @@ if [ ! -d provision ]; then
 fi
 
 ## Install the component
-if [ $COMPONENT ]; then
-    sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
-fi
+sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
