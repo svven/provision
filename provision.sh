@@ -6,7 +6,7 @@ echo "
 ## User: $USER (e.g. root, vagrant, ubuntu)
 ##############################################################################"
 
-ALL="nginx web app"
+ALL="postgre redis nginx app poller summarizer web"
 COMPONENT=${1:-"$ALL"} # (e.g.: "postgre", "summarizer app")
 if [[ $COMPONENT == "all" ]]; then
     COMPONENT=$ALL

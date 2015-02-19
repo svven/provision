@@ -39,7 +39,8 @@ sudo cp $DIR/conf/redis.conf /etc/redis.conf
 echo "
 ## https://redislabs.com/blog/5-tips-for-running-redis-over-aws
 vm.swappiness=0
-vm.overcommit_memory = 1" | sudo tee -a /etc/sysctl.conf
+vm.overcommit_memory=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl vm.overcommit_memory=1
 
 ## Initialize 
 sudo cp -u $DIR/init/redis.init /etc/init.d/redis-server
