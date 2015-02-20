@@ -19,7 +19,14 @@ SYSADMIN_GIT_REPO=https://bitbucket.org/svven/sysadmin.git
 PROVISION_GIT_REPO=git@bitbucket.org:svven/provision.git
 
 ## Update first
-curl -L $SYSADMIN_GIT_REPO/raw/master/update.sh | bash
+curl -L $SYSADMIN_GIT_REPO/raw/master/fixlocale.sh | bash
+
+## Update and upgrade
+sudo apt-get update
+sudo apt-get upgrade -y
+
+## Major requirements
+sudo apt-get install -y build-essential git
 
 ## Go home
 cd /home/$USER
@@ -41,4 +48,4 @@ bash sysadmin/adduser.sh $NEW_USER
 ## Set SSH keys and install the component
 sudo -u $NEW_USER -H bash -c "
 bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
-bash provision/install.sh '$COMPONENT'"
+# bash provision/install.sh '$COMPONENT'"

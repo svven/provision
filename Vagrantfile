@@ -12,8 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # config.vm.synced_folder "../", "/project", 
   #   owner: "svven", group: "devs", mount_options: ["dmode=750,fmode=640"]
-  # config.vm.synced_folder "../sysadmin/", "/home/vagrant/sysadmin"
-  config.vm.synced_folder "../provision/", "/home/vagrant/provision"
+  config.vm.synced_folder "../sysadmin/", "/home/ubuntu/sysadmin"
+  config.vm.synced_folder "../provision/", "/home/ubuntu/provision"
 
   config.vm.provision :shell, path: "../provision/provision.sh", 
     keep_color: "true" #, args: "web"
