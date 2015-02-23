@@ -43,7 +43,7 @@ fi
 if [ ! -d provision ]; then
     sudo -u $USER -H bash sysadmin/setssh.sh $PRIVATE_KEY
     sudo -u $USER -H bash -c "
-    source ~/.bash_profile
+    source .bash_profile
     git clone $PROVISION_GIT_REPO"
 fi
 
@@ -51,8 +51,8 @@ fi
 sudo -u $USER -H bash sysadmin/adduser.sh $NEW_USER
 sudo -u $NEW_USER -H bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
 
-## Install the component(s)
-sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
-
 ## Set app environment vars
 echo $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
+
+## Install the component(s)
+sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
