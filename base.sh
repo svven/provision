@@ -1,19 +1,9 @@
 #!/bin/bash
 echo "
 ##############################################################################
-## Provision
+## Base instance
 ## User: $USER (e.g. root, vagrant, ubuntu)
 ##############################################################################"
-ALL="postgre redis nginx app poller summarizer web"
-
-COMPONENT="poller summarizer app" 
-#COMPONENT=${1:-"$ALL"} # (e.g.: "postgre", "summarizer app")
-if [[ $COMPONENT == "all" ]]; then
-    COMPONENT=$ALL
-fi
-ENVIRONMENT="
-    DATABASE_HOST=localhost
-"
 
 USER=ubuntu; NEW_USER=svven
 PRIVATE_KEY=https://www.dropbox.com/s/5le6maruiold9lc/svven_rsa?dl=1
@@ -50,9 +40,3 @@ fi
 ## Add the new user and set SSH keys
 sudo -u $USER -H bash sysadmin/adduser.sh $NEW_USER
 sudo -u $NEW_USER -H bash sysadmin/setssh.sh $PRIVATE_KEY $PUBLIC_KEY
-
-## Set app environment vars
-echo $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
-
-## Install the component(s)
-sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
