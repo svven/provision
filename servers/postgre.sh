@@ -15,12 +15,17 @@ cd $HOME # /home/$USER
 ## Install
 sudo apt-get install -y $POSTGRE_VER postgresql-contrib
 
+## Stop service
+sudo service postgresql stop
+
 ## Configure
 sudo cp $DIR/conf/postgre/postgresql.conf /etc/postgresql/$VER/main/postgresql.conf
 sudo cp $DIR/conf/postgre/pg_hba.conf /etc/postgresql/$VER/main/pg_hba.conf
 echo "
 host $USER $USER samenet trust" | sudo tee -a /etc/postgresql/$VER/main/pg_hba.conf
-sudo service postgresql reload
+
+## Start service
+sudo service postgresql start
 
 ## Database
 sudo -u postgres createuser -D -A $USER ## dropuser $USER
