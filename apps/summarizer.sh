@@ -33,6 +33,7 @@ pip install -r requirements.txt
 
 ## Configure supervisor
 MANAGE=$(which manage)
+DIRECTORY=$PWD
 
 LOG_FOLDER=/var/log/$APP
 sudo mkdir -p $LOG_FOLDER && sudo chown $USER $LOG_FOLDER
