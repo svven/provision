@@ -6,8 +6,8 @@ echo "
 ##############################################################################
 "
 
-REPO=poller
-GIT_REPO=git@bitbucket.org:svven/$REPO.git
+APP=poller
+APP_GIT_REPO=git@bitbucket.org:svven/$APP.git
 DIR=$( cd "$( dirname "$0" )/.." && pwd )
 
 ## Go home
@@ -17,10 +17,10 @@ cd $HOME # /home/$USER
 source .bash_profile
 
 ## Install
-if [ ! -d $REPO ]; then
-    git clone $GIT_REPO
+if [ ! -d $APP ]; then
+    git clone $APP_GIT_REPO
 fi
-cd $REPO
+cd $APP
 
 ## Activate virtualenv
 if [ ! -d env ]; then
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 ## Configure supervisor
 MANAGE=$(which manage)
 
-LOG_FOLDER=/var/log/$REPO
+LOG_FOLDER=/var/log/$APP
 sudo mkdir -p $LOG_FOLDER && sudo chown $USER $LOG_FOLDER
 
 ENVIRONMENT=""
@@ -42,9 +42,9 @@ while read line; do
     ENVIRONMENT=$ENVIRONMENT$line,
 done < $HOME/.env
 
-eval "echo \"$(< $DIR/conf/supervisor/poller.conf)\"" | sudo tee /etc/supervisor/conf.d/poller.conf
+eval "echo \"$(< $DIR/conf/supervisor/$APP.conf)\"" | sudo tee /etc/supervisor/conf.d/$APP.conf
 
 ## Start service
 sudo supervisorctl reread
 sudo supervisorctl update
-sudo supervisorctl start poller:*
+sudo supervisorctl start $APP:*
