@@ -1,4 +1,6 @@
 #!/bin/bash
+## http://alestic.com/2010/12/ec2-user-data-output
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
 echo "
 ##############################################################################
 ## Setup (continued from base.sh)
@@ -17,7 +19,7 @@ AGGREGATOR_REDIS_HOST=localhost"
 cd /home/$USER
 
 ## Pull provision
-cd provision; sudo -u $USER git pull origin; cd ..
+cd provision; sudo -u $USER git pull origin master; cd ..
 
 ## Set app environment vars
 echo -e $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
