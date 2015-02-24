@@ -8,6 +8,7 @@ echo "
 
 REPO=poller
 GIT_REPO=git@bitbucket.org:svven/$REPO.git
+DIR=$( cd "$( dirname "$0" )/.." && pwd )
 
 ## Go home
 cd $HOME # /home/$USER

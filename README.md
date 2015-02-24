@@ -10,4 +10,7 @@ This repo can be deployed on AWS EC2 by calling `base.sh` via cloud-init user da
 
 Call `install.sh` with available arguments to install one or more components (e.g. "postgre", "nginx web app").
 
+Base AMI: **ami-1d38af6a**  
+AMI with working user (svven) ready for component setup.
+
 When starting from the base AMI, call `setup.sh` with desired variables.

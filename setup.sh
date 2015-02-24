@@ -9,13 +9,15 @@ USER=ubuntu; NEW_USER=svven
 
 COMPONENT="poller summarizer app"
 ENVIRONMENT="
-    DATABASE_HOST=localhost\n
-    RQ_REDIS_HOST=localhost\n
-    AGGREGATOR_REDIS_HOST=localhost\n
-"
+DATABASE_HOST=localhost\n
+RQ_REDIS_HOST=localhost\n
+AGGREGATOR_REDIS_HOST=localhost"
 
 ## Go home
 cd /home/$USER
+
+## Pull provision
+cd provision; sudo -u $USER git pull origin; cd ..
 
 ## Set app environment vars
 echo -e $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
