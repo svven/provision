@@ -44,7 +44,7 @@ done < $HOME/.env
 
 eval "echo \"$(< $DIR/conf/supervisor/poller.conf)\"" | sudo tee /etc/supervisor/conf.d/poller.conf
 
-## Restart service
+## Start service
 sudo supervisorctl reread
 sudo supervisorctl update
-sudo supervisorctl start poller
+sudo supervisorctl start poller:*

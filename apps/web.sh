@@ -38,5 +38,5 @@ pip install -r requirements.txt
 # STATIC_ROOT=$REPO/web/static/
 # eval "echo \"$(< $DIR/conf/nginx/web.conf)\"" | sudo tee /etc/nginx/conf.d/web.conf
 
-# ## Restart service
+# ## Start service
 # sudo service nginx restart
