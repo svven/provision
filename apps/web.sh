@@ -31,9 +31,12 @@ source env/bin/activate
 ## Requirements
 pip install -r requirements.txt
 
-## Start gunicorn
-gunicorn manage:app -b unix:/tmp/gunicorn.sock -w 4 -D
+# ## Start gunicorn
+# gunicorn manage:app -b unix:/tmp/gunicorn.sock -w 4 -D
 
-## Configure nginx
-sudo cp $DIR/conf/web.conf /etc/nginx/conf.d/web.conf
-sudo service nginx restart
+# ## Configure nginx
+# STATIC_ROOT=$REPO/web/static/
+# eval "echo \"$(< $DIR/conf/nginx/web.conf)\"" | sudo tee /etc/nginx/conf.d/web.conf
+
+# ## Restart service
+# sudo service nginx restart

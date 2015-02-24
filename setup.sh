@@ -9,16 +9,16 @@ USER=ubuntu; NEW_USER=svven
 
 COMPONENT="poller summarizer app"
 ENVIRONMENT="
-    DATABASE_HOST=localhost
-    RQ_REDIS_HOST=localhost
-    AGGREGATOR_REDIS_HOST=localhost
+    DATABASE_HOST=localhost\n
+    RQ_REDIS_HOST=localhost\n
+    AGGREGATOR_REDIS_HOST=localhost\n
 "
 
 ## Go home
 cd /home/$USER
 
 ## Set app environment vars
-echo $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
+echo -e $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
 
 ## Install the component(s)
 sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"

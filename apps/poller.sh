@@ -29,3 +29,21 @@ source env/bin/activate
 
 ## Requirements
 pip install -r requirements.txt
+
+## Configure supervisor
+MANAGE=$(which manage)
+
+LOG_FOLDER=/var/log/$REPO
+sudo mkdir -p $LOG_FOLDER && sudo chown $USER $LOG_FOLDER
+
+ENVIRONMENT=""
+while read line; do
+    ENVIRONMENT=$ENVIRONMENT$line,
+done < $HOME/.env
+
+eval "echo \"$(< $DIR/conf/supervisor/poller.conf)\"" | sudo tee /etc/supervisor/conf.d/poller.conf
+
+## Restart service
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start poller

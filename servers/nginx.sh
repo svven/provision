@@ -15,5 +15,5 @@ cd $HOME # /home/$USER
 sudo apt-get install -y nginx
 
 ## Configure
-sudo cp $DIR/conf/nginx.conf /etc/nginx/nginx.conf
+sudo cp $DIR/conf/nginx/nginx.conf /etc/nginx/nginx.conf
 sudo service nginx restart

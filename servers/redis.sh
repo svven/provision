@@ -33,9 +33,9 @@ fi
 
 ## Configure
 sudo useradd -r redis
-sudo mkdir -p /var/lib/redis /var/log/redis
-sudo chown redis:redis /var/lib/redis /var/log/redis
-sudo cp $DIR/conf/redis.conf /etc/redis.conf
+sudo mkdir -p /var/lib/redis /var/log/redis /etc/redis
+sudo chown redis:redis /var/lib/redis /var/log/redis /etc/redis
+sudo cp $DIR/conf/redis/redis.conf /etc/redis/redis.conf
 echo "
 ## https://redislabs.com/blog/5-tips-for-running-redis-over-aws
 vm.swappiness=0
