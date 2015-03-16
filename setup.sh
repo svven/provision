@@ -9,11 +9,15 @@ echo "
 
 USER=ubuntu; NEW_USER=svven
 
-COMPONENT="poller summarizer app"
+COMPONENT="app"
 ENVIRONMENT="
 DATABASE_HOST=localhost\n
 RQ_REDIS_HOST=localhost\n
 AGGREGATOR_REDIS_HOST=localhost"
+
+## Update and upgrade
+sudo apt-get update
+sudo apt-get upgrade -y
 
 ## Go home
 cd /home/$USER
@@ -26,3 +30,5 @@ echo -e $ENVIRONMENT | sudo -u $NEW_USER tee /home/$NEW_USER/.env
 
 ## Install the component(s)
 sudo -u $NEW_USER -H bash provision/install.sh "$COMPONENT"
+
+echo "Done"
