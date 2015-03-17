@@ -22,6 +22,7 @@ sudo apt-get install -y libjpeg8-dev # PIL
 sudo apt-get install -y libpq-dev # psycopg2
 # sudo apt-get build-dep python-lxml # probably not needed
 sudo apt-get install -y python-dev lib32z1-dev libxml2-dev libxslt1-dev # lxml
+sudo apt-get install -y libfontconfig libfontconfig-dev libfreetype6-dev # phantomjs
 
 ## Install supervisor
 sudo apt-get install -y supervisor
