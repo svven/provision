@@ -1,5 +1,5 @@
 #!/bin/bash
-REDIS_VER="redis-2.8.19"
+REDIS_VER="redis-3.0.2"
 echo "
 ##############################################################################
 ## Redis server ($REDIS_VER)
