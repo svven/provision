@@ -35,3 +35,6 @@ source env/bin/activate
 
 ## Requirements
 pip install -r requirements.txt --upgrade
+
+## Restart
+sudo supervisorctl restart all
