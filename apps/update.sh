@@ -12,6 +12,7 @@ if [ $# -lt 1 ]; then
 ##############################################################################"
     exit 1
 fi
+DIR=$( cd "$( dirname "$0" )/.." && pwd )
 
 ## Go home
 cd $HOME # /home/$USER
@@ -21,7 +22,7 @@ source .bash_profile
 
 ## Update
 if [ ! -d $APP ]; then
-	echo "App not installed so cannot update."
+    echo "App not installed so cannot update."
     exit 1
 fi
 cd $APP
@@ -36,5 +37,22 @@ source env/bin/activate
 ## Requirements
 pip install -r requirements.txt --upgrade
 
-## Restart
-sudo supervisorctl restart all
+## Reconfigure supervisor
+MANAGE=$(which manage)
+GUNICORN=$(which gunicorn)
+DIRECTORY=$PWD
+
+LOG_FOLDER=/var/log/$APP
+if [ ! -d $LOG_FOLDER ]; then
+    sudo mkdir -p $LOG_FOLDER && sudo chown $USER $LOG_FOLDER
+fi
+
+ENVIRONMENT=""
+while read line; do
+    ENVIRONMENT=$ENVIRONMENT$line,
+done < $HOME/.env
+
+eval "echo \"$(< $DIR/conf/supervisor/$APP.conf)\"" | sudo tee /etc/supervisor/conf.d/$APP.conf
+
+## Update supervisor
+sudo supervisorctl update
