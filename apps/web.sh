@@ -53,7 +53,7 @@ STATIC_ROOT=$PWD/$APP/static/
 
 eval "echo \"$(< $DIR/conf/nginx/$APP.conf)\"" | sudo tee /etc/nginx/conf.d/$APP.conf
 
-# ## Start services
+## Start services
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start $APP
