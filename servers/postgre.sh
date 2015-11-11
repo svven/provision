@@ -13,9 +13,11 @@ DIR=$( cd "$( dirname "$0" )/.." && pwd )
 cd $HOME # /home/$USER
 
 ## Rsyslog
-sudo cp $DIR/conf/rsyslog/rsyslog.conf /etc/rsyslog.conf
-echo "
-local0.* @logs3.papertrailapp.com:20728" | sudo tee -a /etc/rsyslog.conf
+## https://askubuntu.com/questions/95910/command-for-determining-my-public-ip
+LOCALHOSTNAME=$( curl -s ipecho.net/plain ; echo )
+PAPERTRAIL_HOST="logs3.papertrailapp.com"
+PAPERTRAIL_PORT="20728"
+eval "echo \"$(< $DIR/conf/rsyslog/rsyslog.conf)\"" | sudo tee /etc/rsyslog.conf
 sudo service rsyslog restart
 
 ## Install
