@@ -12,6 +12,12 @@ DIR=$( cd "$( dirname "$0" )/.." && pwd )
 ## Go home
 cd $HOME # /home/$USER
 
+## Rsyslog
+sudo cp $DIR/conf/rsyslog/rsyslog.conf /etc/rsyslog.conf
+echo "
+local0.* @logs3.papertrailapp.com:20728" | sudo tee -a /etc/rsyslog.conf
+sudo service rsyslog restart
+
 ## Requirement
 sudo apt-get install -y tcl8.5
 
@@ -49,6 +55,6 @@ sudo sysctl -w net.core.somaxconn=65535
 sudo cp -u $DIR/init/redis.init /etc/init.d/redis-server
 sudo chmod +x /etc/init.d/redis-server
 
-## Start redis server
+## Start service
 sudo update-rc.d redis-server defaults
 sudo service redis-server start
