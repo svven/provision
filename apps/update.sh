@@ -47,6 +47,10 @@ if [ ! -d $LOG_FOLDER ]; then
     sudo mkdir -p $LOG_FOLDER && sudo chown $USER $LOG_FOLDER
 fi
 
+# PSL Temp Fix
+wget https://publicsuffix.org/list/effective_tld_names.dat
+echo "PUBLIC_SUFFIX_LIST=$PWD/effective_tld_names.dat" >> $HOME/.env
+
 ENVIRONMENT=""
 while read line; do
     ENVIRONMENT=$ENVIRONMENT$line,
