@@ -39,7 +39,7 @@ pip install -r requirements.txt --upgrade
 # Requests Temp Fix
 # https://github.com/kennethreitz/requests/issues/3174
 pip uninstall requests -y
-pip install requests==2.9.2 -y
+pip install requests==2.9.2
 
 ## Reconfigure supervisor
 MANAGE=$(which manage)
